@@ -1,5 +1,3 @@
-## ECE 532 Final Project
-
 ### Linear Ridge Regression
 
 ```python
