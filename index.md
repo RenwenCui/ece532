@@ -1,3 +1,5 @@
+## ECE 532 Final Project
+
 ### Linear Ridge Regression
 
 ```python
@@ -170,6 +172,100 @@ knn.fit(train_img, train_lbl)
 # evalution
 predictions = knn.predict(test_img)
 score = knn.score(test_img, test_lbl)
+print(score)
+
+#plot
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn import metrics
+cm = metrics.confusion_matrix(test_lbl, predictions)
+print(cm)
+
+plt.figure(figsize=(9,9))
+sns.heatmap(cm, annot=True, fmt=".3f", linewidths=.5, square = True, cmap = 'Blues_r');
+plt.ylabel('Actual label');
+plt.xlabel('Predicted label');
+all_sample_title = 'Accuracy Score: {0}'.format(score)
+plt.title(all_sample_title, size = 15);
+
+plt.figure(figsize=(9,9))
+plt.imshow(cm, interpolation='nearest', cmap='Pastel1')
+plt.title('Confusion matrix', size = 15)
+plt.colorbar()
+tick_marks = np.arange(10)
+plt.xticks(tick_marks, ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], rotation=45, size = 10)
+plt.yticks(tick_marks, ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], size = 10)
+plt.tight_layout()
+plt.ylabel('Actual label', size = 15)
+plt.xlabel('Predicted label', size = 15)
+width, height = cm.shape
+for x in range(width):
+ for y in range(height):
+  plt.annotate(str(cm[x][y]), xy=(y, x), 
+  horizontalalignment='center',
+  verticalalignment='center')
+```
+### Support Vector Machines
+```python
+#1 Downloading the Data (MNIST)
+import numpy as np
+from sklearn.datasets import fetch_openml
+mnist = fetch_openml("mnist_784")
+
+print("Image Data Shape" , mnist.data.shape)
+print("Label Data Shape", mnist.target.shape)
+
+#2 Splitting Data into Training and Test Sets (MNIST)
+from sklearn.model_selection import train_test_split
+train_img, test_img, train_lbl, test_lbl = train_test_split(mnist.data, mnist.target, test_size=1/7.0, random_state=0)
+train_lbl = np.asarray(train_lbl,'float64')
+test_lbl = np.asarray(test_lbl,'float64')
+
+#3 Showing the Images and Labels (MNIST)
+import matplotlib.pyplot as plt
+plt.figure(figsize=(20,4))
+for index, (image, label) in enumerate(zip(train_img[0:5], train_lbl[0:5])):
+    plt.subplot(1, 5, index + 1)
+    plt.imshow(np.reshape(image, (28,28)), cmap=plt.cm.gray)
+    plt.title('Training: %i\n' % label, fontsize = 20)
+    
+#4 Scikit-learn 4-Step Modeling Pattern (Digits Dataset)
+#4 Step 1. Import the model you want to use
+from sklearn import svm
+from sklearn.model_selection import GridSearchCV
+from sklearn.decomposition import PCA
+from time import time
+
+n_components = 30
+t0 = time()
+pca = PCA(n_components=n_components, svd_solver='randomized',
+          whiten=True).fit(train_img)
+print("done in %0.3fs" % (time() - t0))
+train_img_pca = pca.transform(train_img)
+#cv find the best parameters
+param_grid = [
+  {'C': [10, 100], 'kernel': ['linear']},
+  {'C': [10, 100], 'gamma': [0.01, 0.005, 0.001], 'kernel': ['rbf']},
+  ]
+t0 = time()
+svm_clsf = svm.SVC()
+grid_clsf = GridSearchCV(svm_clsf,param_grid,n_jobs=1, verbose=2,cv=4)
+grid_clsf.fit(train_img_pca, train_lbl)
+print("done in %0.3fs" % (time() - t0))
+classifier = grid_clsf.best_estimator_
+params = grid_clsf.best_params_
+
+# import seaborn as sns 
+# import pandas as pd
+# pvt = pd.pivot_table(pd.DataFrame(grid_clsf.cv_results_),values='mean_test_score')
+# pvt
+# import seaborn as sns 
+# plt.figure(figsize=(2,2))      
+# sns.heatmap(pvt)
+
+predictions = classifier.predict(pca.transform(test_img))
+# evalution
+score = classifier.score(pca.transform(test_img), test_lbl)
 print(score)
 
 #plot
