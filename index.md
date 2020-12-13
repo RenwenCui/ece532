@@ -13,7 +13,7 @@ mnist = fetch_openml("mnist_784")
 ```
 
 ### 1.2 Splitting the data into Training and Test Sets
-Using *train_test_split* separates the MNIST into the traing subset and the test subset. The training set has 60,000 images and corresponding  labels. The test set involves 10,000 images and corresponding  labels.
+Using *train_test_split* separates the MNIST into the traing subset and the test subset. The training set has 60,000 images and corresponding labels. The test set involves 10,000 images and corresponding  labels.
 ```python
 #2 Splitting the MNIST
 from sklearn.model_selection import train_test_split
@@ -36,7 +36,7 @@ for index, (image, label) in enumerate(zip(train_img[0:7], train_lbl[0:7])):
 ```
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/images%20and%20labels%20display.png" style="zoom:60%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/images%20and%20labels%20display.png" style="zoom:70%"  align="center" />
 </div>
 
 ## 2 Dimensionality reduction
@@ -120,12 +120,12 @@ Ridge regression imposing a penalty on the size of the coefficients based on the
 
 $$\mathop{min}\limits_{w}||Xw-y||^{2}_{2}+\alpha||w||^{2}_{2},\quad \alpha\geq 0$$
 
-The first term is the loss function of least squares, and the second term is a penalty term for the ridge regression. The key parameter $\alpha$ is a trade off between variance and bias. Thus, it is necessary to use cross-validation to choose an appropriate $\alpha$. The Ridge regressor has a classifier variant: RidgeClassifier, which can achieve the multiclass classification. Besides, we need to use cross-validation to determine the best $\alpha$. We set the range of $\alpha$ from $10^{-7}$ to $10^{6}$.  Finally, we find that indicates Various $\alpha$ have the similar performance except for $\alpha=10^{6}$. 
+The first term is the loss function of least squares, and the second term is a penalty term for the ridge regression. The key parameter $\alpha$ is a trade off between variance and bias. Thus, it is necessary to use cross-validation to choose an appropriate $\alpha$. The Ridge regressor has a classifier variant: *RidgeClassifier*, which can achieve the multiclass classification. Besides, we need to use cross-validation to determine the best $\alpha$. We set the range of $\alpha$ from 10^-7^ to 10^6^.  Finally, we find that indicates Various $\alpha$ have the similar performance except for $\alpha$=10^6^. 
 
-<center>Performance summary of different parameters</center>
-| $\alpha$ | **$10^{-7}$** | $10^{-5}$ | $10^{-3}$ | $10^{-1}$ | $10^{2}$ | $10^{4}$ | $10^{6}$ |
-| :------: | :-----------: | :-------: | :-------: | :-------: | :------: | :------: | :------: |
-|  Score   |  **0.8346**   |  0.8346   |  0.8346   |  0.8346   |  0.8346  |  0.8341  |  0.7447  |
+<div align=center>
+<img 
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/table%20cvRR.png" style="zoom:50%"  align="center" />
+</div>
 
 ```python
 # Learning using the best parameters and prediction_ridge regression
@@ -152,7 +152,7 @@ reg_score = reg_classifier.score(pca.transform(test_img), test_lbl)
 print(reg_score)
 ```
 
-Using the best $\alpha$ of $10^{-7}$ fit the model on the entire training data(60000), and predict new labels on the entire testing data, then score this method. The final score is **0.8276**.
+Using the best $\alpha$ of **10^-7^** fit the model on the entire training data(60000), and predict new labels on the entire testing data, then score this method. The final score is **0.8276**.
 
 <div align=center>
 <img 
@@ -178,21 +178,21 @@ plt.title(all_sample_title, size = 15);
 ### 3.2  KNN classifier
 Nearest neighbor classification is a non-linear instance-based learning classifier. It simply stores instances from the training data and compare distances between unknown data with the training data. Then based on distances, it predicts labels for the unknown data. 
 
-KNN requires a total of $X$ training data points and $M$ classes, it predicts an unobserved training point $X_{new}$ as the mean of the closes k neighbours to $X_{new}$. Usually, the standard Euclidean metric $d(x,x_{i}) = \sqrt{\sum^{n}_{i=1}(x-x_{i})^{2}}$ is used as the the distance matrix.
+KNN requires a total of X training data points and M classes, it predicts an unobserved training point X~new~ as the mean of the closes k neighbours to X~new~. Usually, the standard Euclidean metric $d(x,x_{i}) = \sqrt{\sum^{n}_{i=1}(x-x_{i})^{2}}$ is used as the the distance matrix.
 
 $$\hat{y} = \frac{1}{k}\sum_{x_{i}\in X} d(x_{i},x)$$
 
-There is a nearest neighbor classifier named $KNeighborsClassifier$ that implements learning based on a k nearest neighbors of the new data. When k is too small, the model becomes susceptible to noise and outlier data points; however, if k is too large, it poses a risk over-smoothing the classification results and increasing bias. It need to learn the training data using different values k, then chooses the best according to their performance of cross-validation.
+There is a nearest neighbor classifier named *KNeighborsClassifier* that implements learning based on a k nearest neighbors of the new data. When k is too small, the model becomes susceptible to noise and outlier data points; however, if k is too large, it poses a risk over-smoothing the classification results and increasing bias. It need to learn the training data using different values k, then chooses the best according to their performance of cross-validation.
 
 <div align=center>
 <img 
 src="https://raw.githubusercontent.com/RenwenCui/ece532/main/cvKNN.png" style="zoom:70%"  align="center" />
 </div>
 
-<center>Performance summary of different parameters</center>
-|   k   |   1    |   2    |     3      |   4    |   5    |
-| :---: | :----: | :----: | :--------: | :----: | :----: |
-| score | 0.9688 | 0.9636 | **0.9725** | 0.9693 | 0.9697 |
+<div align=center>
+<img 
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/table%20cvKNN.png" style="zoom:60%"  align="center" />
+</div>
 
 ```python
 # Learning using the best parameters and prediction_KNN
@@ -224,7 +224,7 @@ knn_score = knn_classifier.score(pca.transform(test_img), test_lbl)
 print(knn_score)
 ```
 
-Using the best $k$ of $3$ fit the model on the entire training data(60000), and predict new labels on the entire testing data. The final score is **0.9725**. 
+Using the best k of **3** fit the model on the entire training data(60000), and predict new labels on the entire testing data. The final score is **0.9725**. 
 
 <div align=center>
 <img 
@@ -252,7 +252,7 @@ Support Vector Machine is capable of performing multi-class classification on a 
 
 $$\mathop{min}\limits_{\alpha}(1-y^{i}\sum_{j=1}^{N}\alpha_{j}K(x^{i}x^{j}))_{+}+\lambda\sum_{i=1}^{N}\sum_{j=1}^{N}\alpha_{i}\alpha_{j}K(x^{i}x^{j})$$
 
-The first term is the hinge loss function and the second term is the misclassification penalty. The penalty receives increasing emphasis as $\lambda$ increases. Gamma is the Kernel coefficient. We used cross-validation to find the best parameters. There is a classifier named $sklearn.svm.SVC$ that implements learning based on support vectors.
+The first term is the hinge loss function and the second term is the misclassification penalty. The penalty receives increasing emphasis as $\lambda$ increases. Gamma is the Kernel coefficient. We used cross-validation to find the best parameters. There is a classifier named *sklearn.svm.SVC* that implements learning based on support vectors.
 
 <div align=center>
 <img 
@@ -291,7 +291,7 @@ score = classifier.score(pca.transform(test_img), test_lbl)
 print(score)
 ```
 
-Using the best $C$ of $100$ and $gamma$ of $0.05$ fit the model, and get the final score is **0.9845**.
+Using the best C of **100** and gamma of **0.05** fit the model, and get the final score is **0.9845**.
 
 <div align=center>
 <img 
