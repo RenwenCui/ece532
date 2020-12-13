@@ -124,7 +124,7 @@ The first term is the loss function of least squares, and the second term is a p
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/table%20cvRR.png" style="zoom:50%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/table%20cvRR.png" style="zoom:60%"  align="center" />
 </div>
 
 ```python
