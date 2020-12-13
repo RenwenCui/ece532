@@ -1,2 +1,3 @@
 # ece532
-Final Project
+Final Project_Renwen Cui
+rcui7@wisc.edu
