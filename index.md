@@ -316,3 +316,42 @@ plt.title(all_sample_title, size = 15);
 
 ## 4 Discussion
 The linear ridge regression classifier is time-consuming, but when the dataset is non-linear, the limitation of the linear classifier results in poor performance because it is unable to capture more complex patterns. For KNN, it has no training period which means adding new data will not impact the accuracy of the algorithm; however, KNN doesn't work well with high dimensional data because high dimensionality increases the difficulty in calculating the distance in each dimension. In this dataset, the score of performance is 0.97 when I used the first 40 components, but this score is 0.95 when I used the first 100 components. Besides, KNN is sensitive to noise in the dataset because it has no penalty. Last, SVM is more effective in high dimensional spaces due to the tricky kernel; however, it can be computationally expensive.
+
+
+The variance is a little more tricky, 
+$$
+Var[X] = E[(X - E[X])'(X - E[X])] = E[X'X - X'E[X] - E[X]'X + E[X]'E[X]]
+$$
+$$
+= E[X'X] - E[X]'E[X] = 
+E\left[
+\begin{pmatrix}
+X_1 & X_2
+\end{pmatrix}
+\begin{pmatrix}
+X_1 \\ X_2
+\end{pmatrix}
+- 
+\begin{pmatrix}
+E[X_1] & E[X_2]
+\end{pmatrix}
+\begin{pmatrix}
+E[X_1] \\ E[X_2]
+\end{pmatrix}
+\right]
+$$
+$$
+=
+\begin{pmatrix}
+E[X_1^2] - E[X_1]^2 & E[X_1X_2] - E[X_1]E[X_2] \\
+E[X_2X_1] - E[X_2]E[X_1] & E[X_2^2] - E[X_2]^2
+\end{pmatrix}
+= 
+\begin{pmatrix}
+Var[X_1] & Cov[X_1,X_2] \\
+Cov[X_1,X_2] & Var[X_2].
+\end{pmatrix}
+$$
+
+so that $Var[X]$ is $2\times 2$, symmetric, variance matrix.
+
