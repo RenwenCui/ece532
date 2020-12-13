@@ -36,7 +36,7 @@ for index, (image, label) in enumerate(zip(train_img[0:7], train_lbl[0:7])):
 ```
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/images%20and%20labels%20display.png" style="zoom:40%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/images%20and%20labels%20display.png" style="zoom:60%"  align="center" />
 </div>
 
 ## 2 Dimensionality reduction
@@ -44,12 +44,12 @@ The MNIST has a huge computation in a learning process, so we need to use princi
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/pca%20variance.png" style="zoom:70%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/pca%20variance.png" style="zoom:80%"  align="center" />
 </div>
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/reconstruction.png" style="zoom:40%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/reconstruction.png" style="zoom:60%"  align="center" />
 </div>
 
 ```python
@@ -89,7 +89,7 @@ The visualization of data using PCA that shows that the multi-class classificati
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/pca%20components.png" style="zoom:70%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/pca%20components.png" style="zoom:80%"  align="center" />
 </div>
 
 ```python
@@ -102,7 +102,7 @@ The components are ordered by their importance from top-left to bottom-right in 
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/pca%20components%20display.png" style="zoom:60%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/pca%20components%20display.png" style="zoom:80%"  align="center" />
 </div>
 
 ```python
@@ -156,7 +156,7 @@ Using the best $\alpha$ of $10^{-7}$ fit the model on the entire training data(6
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/scoreRR.png" style="zoom:50%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/scoreRR.png" style="zoom:70%"  align="center" />
 </div>
 
 ```python
@@ -228,7 +228,7 @@ Using the best $k$ of $3$ fit the model on the entire training data(60000), and 
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/scoreKNN.png" style="zoom:50%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/scoreKNN.png" style="zoom:70%"  align="center" />
 </div>
 
 ```python
@@ -295,7 +295,7 @@ Using the best $C$ of $100$ and $gamma$ of $0.05$ fit the model, and get the fin
 
 <div align=center>
 <img 
-src="https://raw.githubusercontent.com/RenwenCui/ece532/main/scoreSVM.png" style="zoom:50%"  align="center" />
+src="https://raw.githubusercontent.com/RenwenCui/ece532/main/scoreSVM.png" style="zoom:70%"  align="center" />
 </div>
 
 ```python
